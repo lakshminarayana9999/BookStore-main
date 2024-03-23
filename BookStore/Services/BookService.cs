@@ -85,6 +85,17 @@ namespace BookStore.Services
             return _context.Books.Find(id);
 
         }
+
+        
+        public void DeleteBook(int id)
+        {
+            var bookToRemove = _context.Books.FirstOrDefault(b => b.Id == id);
+            if (bookToRemove != null)
+            {
+                _context.Books.Remove(bookToRemove);
+                _context.SaveChanges(); // Save changes to commit the deletion
+            }
+        }
         public void UpdateBook(Book book)
         {
             // Optionally, you can attach the book entity to the context and mark it as modified.

@@ -93,6 +93,21 @@ namespace BookStore.Controllers
             return Ok(existingBook);
         }
 
+        [HttpDelete("delete/{id}")]
+        public IActionResult DeleteBook(int id)
+        {
+            var book = _bookService.GetBookById(id);
+            if (book == null)
+            {
+                return NotFound(); // Return 404 if the book with the specified id is not found
+            }
+
+            _bookService.DeleteBook(id);
+
+            return NoContent(); // Return 204 indicating successful deletion
+        }
+
+
         [HttpPost("create")]
         public IActionResult CreateBook([FromBody] Book book)
         {
